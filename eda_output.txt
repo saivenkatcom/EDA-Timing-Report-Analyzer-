@@ -1,0 +1,73 @@
+PS C:\Users\MANI> cd D:\Downloads                                                                                   
+>> python eda_timing_analyzer.py sample_reports/timing_report.rpt --design risc_v_core
+
+  ◆  EDA Timing Analyzer — starting ...
+  ◆  Reading report : sample_reports/timing_report.rpt
+  ◆  Parsed 6 timing paths
+
+
+==============================================================
+  EDA TIMING ANALYSIS REPORT
+  Design  : risc_v_core
+  Date    : 2026-03-27 12:58
+==============================================================
+
+  SUMMARY
+  Total paths analyzed             6
+  Paths MET                        2
+  Paths VIOLATED                   4
+    └── Setup violations           3
+    └── Hold violations            1
+
+  Worst Negative Slack (WNS)       -3.780 ns
+  Total Negative Slack (TNS)       -4.522 ns
+  Worst Hold Slack (WHS)           -0.080 ns
+
+  Timing Health Score              5/100  🔴 CRITICAL
+
+  VIOLATION BREAKDOWN BY SEVERITY
+  ● CRITICAL (slack ≤ -1.0 ns)              1 path(s)
+  ● MAJOR    (slack -0.3 to -1.0 ns)        2 path(s)
+  ● MINOR    (slack 0 to -0.3 ns)           1 path(s)
+
+  ALL PATHS
+  ID   Startpoint             Endpoint               Type      Slack  Severity
+  ----------------------------------------------------------------------------
+  1    alu_reg/Q              mem_stage/D            SETUP   -3.780 ns  CRITICAL
+  2    decode_reg/Q           execute_stage/D        SETUP   -0.420 ns  MAJOR
+  6    regfile_reg/Q          alu_input_mux/D        SETUP   -0.322 ns  MAJOR
+  4    wb_reg/Q               forwarding_mux/D       HOLD    -0.080 ns  MINOR
+  3    fetch_reg/Q            decode_stage/D         NONE    +4.420 ns  CLEAN
+  5    pc_reg/Q               fetch_stage/D          NONE    +4.550 ns  CLEAN
+
+  TOP 3 WORST VIOLATING PATHS
+
+  [1] Path 1 — CRITICAL
+      From : alu_reg/Q
+      To   : mem_stage/D
+      Slack: -3.780 ns  |  Type: SETUP
+      Cells on path: U201(AND2X2), U202(OAI21X1), U203(INVX2), U210(NAND2X1)
+
+  [2] Path 2 — MAJOR
+      From : decode_reg/Q
+      To   : execute_stage/D
+      Slack: -0.420 ns  |  Type: SETUP
+      Cells on path: U101(AND2X2), U102(XNOR2X1), U103(BUFX4), U104(OAI21X1)
+
+  [3] Path 6 — MAJOR
+      From : regfile_reg/Q
+      To   : alu_input_mux/D
+      Slack: -0.322 ns  |  Type: SETUP
+      Cells on path: U601(AND2X2), U602(MX2X1), U603(INVX4), U604(AOI22X1)
+
+==============================================================
+
+  GENERATING FIX ARTIFACTS ...
+
+  ✅  SDC written  → output/constraints.sdc
+  ✅  TCL script   → output/fix_timing.tcl
+  ✅  JSON summary → output/timing_summary.json
+
+  All files written to: ./output/
+  ─────────────────────────────────────────────────
+  Done. Review output/ folder and push to GitHub.

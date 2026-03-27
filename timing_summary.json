@@ -1,0 +1,49 @@
+{
+  "design": "risc_v_core",
+  "generated": "2026-03-27T12:58:34.500761",
+  "summary": {
+    "total_paths": 6,
+    "violated_paths": 4,
+    "met_paths": 2,
+    "setup_violations": 3,
+    "hold_violations": 1,
+    "wns_ns": -3.78,
+    "tns_ns": -4.522,
+    "whs_ns": -0.08,
+    "timing_health_score": 5
+  },
+  "violations": [
+    {
+      "path_id": 1,
+      "startpoint": "alu_reg/Q",
+      "endpoint": "mem_stage/D",
+      "type": "SETUP",
+      "slack_ns": -3.78,
+      "severity": "CRITICAL"
+    },
+    {
+      "path_id": 2,
+      "startpoint": "decode_reg/Q",
+      "endpoint": "execute_stage/D",
+      "type": "SETUP",
+      "slack_ns": -0.42,
+      "severity": "MAJOR"
+    },
+    {
+      "path_id": 4,
+      "startpoint": "wb_reg/Q",
+      "endpoint": "forwarding_mux/D",
+      "type": "HOLD",
+      "slack_ns": -0.08,
+      "severity": "MINOR"
+    },
+    {
+      "path_id": 6,
+      "startpoint": "regfile_reg/Q",
+      "endpoint": "alu_input_mux/D",
+      "type": "SETUP",
+      "slack_ns": -0.322,
+      "severity": "MAJOR"
+    }
+  ]
+}

@@ -1,0 +1,206 @@
+############################################################
+# Synopsys PrimeTime STA Report (Sample)
+# Design  : risc_v_core
+# Corner  : ss_0p9v_125c (slow-slow, 0.9V, 125°C)
+# Mode    : func
+############################################################
+
+# ============================================================
+# Path 1 (VIOLATED - SETUP)
+# ============================================================
+Startpoint: alu_reg/Q         (rising edge-triggered flip-flop clocked by CLK)
+Endpoint:   mem_stage/D        (rising edge-triggered flip-flop clocked by CLK)
+Path Group: CLK
+Path Type:  max
+
+Point                          Incr       Path
+-----------------------------------------------------------
+clock CLK (rise edge)          0.000      0.000
+clock network delay (ideal)    0.300      0.300
+alu_reg/CK (DFFRX1)           0.000      0.300 r
+alu_reg/Q (DFFRX1)             0.180      0.480 r
+U201/Z (AND2X2)                0.120      0.600 r
+U202/Z (OAI21X1)               0.200      0.800 f
+U203/Z (INVX2)                 0.080      0.880 r
+U210/Z (NAND2X1)               0.150      1.030 f
+U211/Z (AOI22X1)               0.220      1.250 r
+mem_stage/D (DFFRX1)           0.000      1.250 r
+data arrival time                         1.250
+
+clock CLK (rise edge)          5.000      5.000
+clock network delay (ideal)    0.280      5.280
+clock uncertainty              -0.100     5.180
+mem_stage/CK (DFFRX1)          0.000      5.180 r
+library setup time             -0.150     5.030
+data required time                        5.030
+
+data required time                        5.030
+data arrival time                        -1.250
+-----------------------------------------------------------
+slack (VIOLATED)                          -3.780 ns
+
+
+# ============================================================
+# Path 2 (VIOLATED - SETUP)
+# ============================================================
+Startpoint: decode_reg/Q       (rising edge-triggered flip-flop clocked by CLK)
+Endpoint:   execute_stage/D    (rising edge-triggered flip-flop clocked by CLK)
+Path Group: CLK
+Path Type:  max
+
+Point                          Incr       Path
+-----------------------------------------------------------
+clock CLK (rise edge)          0.000      0.000
+clock network delay (ideal)    0.280      0.280
+decode_reg/CK (DFFRX1)        0.000      0.280 r
+decode_reg/Q (DFFRX1)          0.160      0.440 r
+U101/Z (AND2X2)                0.110      0.550 r
+U102/Z (XNOR2X1)               0.340      0.890 f
+U103/Z (BUFX4)                 0.060      0.950 r
+U104/Z (OAI21X1)               0.210      1.160 f
+execute_stage/D (DFFRX1)       0.000      1.160 r
+data arrival time                         1.160
+
+clock CLK (rise edge)          5.000      5.000
+clock network delay (ideal)    0.270      5.270
+clock uncertainty              -0.100     5.170
+execute_stage/CK (DFFRX1)      0.000      5.170 r
+library setup time             -0.150     5.020
+data required time                        5.020
+
+data required time                        5.020
+data arrival time                        -1.160
+-----------------------------------------------------------
+slack (VIOLATED)                          -0.420 ns
+
+
+# ============================================================
+# Path 3 (MET)
+# ============================================================
+Startpoint: fetch_reg/Q        (rising edge-triggered flip-flop clocked by CLK)
+Endpoint:   decode_stage/D     (rising edge-triggered flip-flop clocked by CLK)
+Path Group: CLK
+Path Type:  max
+
+Point                          Incr       Path
+-----------------------------------------------------------
+clock CLK (rise edge)          0.000      0.000
+clock network delay (ideal)    0.290      0.290
+fetch_reg/CK (DFFRX1)         0.000      0.290 r
+fetch_reg/Q (DFFRX1)           0.170      0.460 r
+U301/Z (AND2X2)                0.100      0.560 r
+U302/Z (BUFX4)                 0.055      0.615 r
+decode_stage/D (DFFRX1)        0.000      0.615 r
+data arrival time                         0.615
+
+clock CLK (rise edge)          5.000      5.000
+clock network delay (ideal)    0.285      5.285
+clock uncertainty              -0.100     5.185
+decode_stage/CK (DFFRX1)       0.000      5.185 r
+library setup time             -0.150     5.035
+data required time                        5.035
+
+data required time                        5.035
+data arrival time                        -0.615
+-----------------------------------------------------------
+slack (MET)                               4.420 ns
+
+
+# ============================================================
+# Path 4 (VIOLATED - HOLD)
+# ============================================================
+Startpoint: wb_reg/Q           (rising edge-triggered flip-flop clocked by CLK)
+Endpoint:   forwarding_mux/D   (rising edge-triggered flip-flop clocked by CLK)
+Path Group: CLK
+Path Type:  min
+
+Point                          Incr       Path
+-----------------------------------------------------------
+clock CLK (rise edge)          0.000      0.000
+clock network delay (ideal)    0.200      0.200
+wb_reg/CK (DFFRX1)            0.000      0.200 r
+wb_reg/Q (DFFRX1)              0.100      0.300 r
+U401/Z (BUFX2)                 0.040      0.340 r
+forwarding_mux/D (DFFRX1)      0.000      0.340 r
+data arrival time                         0.340
+
+clock CLK (rise edge)          0.000      0.000
+clock network delay (ideal)    0.290      0.290
+clock uncertainty              0.050      0.340
+forwarding_mux/CK (DFFRX1)     0.000      0.340 r
+library hold time              0.080      0.420
+data required time                        0.420
+
+data required time                        0.420
+data arrival time                        -0.340
+-----------------------------------------------------------
+slack (VIOLATED)                          -0.080 ns
+
+
+# ============================================================
+# Path 5 (MET)
+# ============================================================
+Startpoint: pc_reg/Q           (rising edge-triggered flip-flop clocked by CLK)
+Endpoint:   fetch_stage/D      (rising edge-triggered flip-flop clocked by CLK)
+Path Group: CLK
+Path Type:  max
+
+Point                          Incr       Path
+-----------------------------------------------------------
+clock CLK (rise edge)          0.000      0.000
+clock network delay (ideal)    0.300      0.300
+pc_reg/CK (DFFRX1)            0.000      0.300 r
+pc_reg/Q (DFFRX1)              0.140      0.440 r
+U501/Z (BUFX8)                 0.045      0.485 r
+fetch_stage/D (DFFRX1)         0.000      0.485 r
+data arrival time                         0.485
+
+clock CLK (rise edge)          5.000      5.000
+clock network delay (ideal)    0.285      5.285
+clock uncertainty              -0.100     5.185
+fetch_stage/CK (DFFRX1)        0.000      5.185 r
+library setup time             -0.150     5.035
+data required time                        5.035
+
+data required time                        5.035
+data arrival time                        -0.485
+-----------------------------------------------------------
+slack (MET)                               4.550 ns
+
+
+# ============================================================
+# Path 6 (VIOLATED - SETUP, near-critical)
+# ============================================================
+Startpoint: regfile_reg/Q      (rising edge-triggered flip-flop clocked by CLK)
+Endpoint:   alu_input_mux/D    (rising edge-triggered flip-flop clocked by CLK)
+Path Group: CLK
+Path Type:  max
+
+Point                          Incr       Path
+-----------------------------------------------------------
+clock CLK (rise edge)          0.000      0.000
+clock network delay (ideal)    0.295      0.295
+regfile_reg/CK (DFFRX1)       0.000      0.295 r
+regfile_reg/Q (DFFRX1)         0.175      0.470 r
+U601/Z (AND2X2)                0.115      0.585 r
+U602/Z (MX2X1)                 0.280      0.865 f
+U603/Z (INVX4)                 0.070      0.935 r
+U604/Z (AOI22X1)               0.225      1.160 f
+U605/Z (NAND2BX1)              0.190      1.350 r
+alu_input_mux/D (DFFRX1)       0.000      1.350 r
+data arrival time                         1.350
+
+clock CLK (rise edge)          5.000      5.000
+clock network delay (ideal)    0.278      5.278
+clock uncertainty              -0.100     5.178
+alu_input_mux/CK (DFFRX1)      0.000      5.178 r
+library setup time             -0.150     5.028
+data required time                        5.028
+
+data required time                        5.028
+data arrival time                        -1.350
+-----------------------------------------------------------
+slack (VIOLATED)                          -0.322 ns
+
+
+# End of Report
